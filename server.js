@@ -59,7 +59,6 @@ app.get('/cars', async (req, res) => {
 app.get('/cars/:id', async function(req, res) {
 
     const id = req.params.id;
-    
 
     try {
       const exists = await req.db.query(`
@@ -111,6 +110,10 @@ app.get('/cars/:id', async function(req, res) {
   //delete car
   app.delete('/cars/:id', async function(req,res) {
     const id = req.params.id;
+
+    if (!id) {
+      return res.status(400).json({error: 'Id required.'})
+    }
 
     try {
 
